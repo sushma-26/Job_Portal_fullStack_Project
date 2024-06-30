@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Job Portal - Post a Job</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+</head>
+
+<body class="bg-gray-900 text-white">
+    <div class="min-h-screen flex justify-center items-center">
+        <div class="w-full sm:max-w-md bg-gray-800 p-8 rounded-lg shadow-lg">
+            <h2 class="text-2xl font-semibold mb-4">Post a Job</h2>
+            <form method="POST">
+                {% csrf_token %}
+                <div class="mb-4">
+                    <label for="role" class="block text-gray-300 mb-2">Role</label>
+                    <input type="text" id="role" name="role" class="form-input dark:bg-gray-700 border-gray-600 text-gray-900" placeholder="Enter job role">
+                </div>
+                <div class="mb-4">
+                    <label for="field" class="block text-gray-300 mb-2">Field</label>
+                    <select id="field" name="field" class="form-select dark:bg-gray-700 border-gray-600 text-gray-900">
+                        {% for job_field in fields %}
+                        <option value="{{ job_field }}">{{ job_field }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="mb-4">
+                    <label for="company" class="block text-gray-300 mb-2">Company Name</label>
+                    <input type="text" id="company" name="company" class="form-input dark:bg-gray-700 border-gray-600 text-gray-900" placeholder="Enter company name">
+                </div>
+                <div class="mb-4">
+                    <label for="openings" class="block text-gray-300 mb-2">Number of Openings</label>
+                    <input type="number" id="openings" name="openings" class="form-input dark:bg-gray-700 border-gray-600 text-gray-900" placeholder="Enter number of openings">
+                </div>
+                <div class="mb-4">
+                    <label for="stipend" class="block text-gray-300 mb-2">Stipend</label>
+                    <input type="text" id="stipend" name="stipend" class="form-input dark:bg-gray-700 border-gray-600 text-gray-900" placeholder="Enter stipend">
+                </div>
+                <div class="mb-4">
+                    <label for="duration" class="block text-gray-300 mb-2">Duration</label>
+                    <input type="text" id="duration" name="duration" class="form-input dark:bg-gray-700 border-gray-600 text-gray-900" placeholder="Enter duration">
+                </div>
+                <div class="mb-4">
+                    <label for="location" class="block text-gray-300 mb-2">Location</label>
+                    <input type="text" id="location" name="location" class="form-input dark:bg-gray-700 border-gray-600 text-gray-900" placeholder="Enter location">
+                </div>
+                <div class="mb-4">
+                    <label for="city" class="block text-gray-300 mb-2">City</label>
+                    <select id="city" name="city" class="form-select dark:bg-gray-700 border-gray-600 text-gray-900">
+                        {% for each_city in cities %}
+                        <option value="{{ each_city }}">{{ each_city }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="mb-4">
+                    <label class="block text-gray-300 mb-2">Skills Required</label>
+                    <div class="flex flex-wrap">
+                        {% for each_skill in skills %}
+                        <div class="w-1/2">
+                            <label class="inline-flex items-center text-gray-300">
+                                <input name="skill" value="{{ each_skill }}" type="checkbox" class="form-checkbox text-blue-500 dark:bg-gray-700 border-gray-600">
+                                <span class="ml-2">{{ each_skill }}</span>
+                            </label>
+                        </div>
+                        {% endfor %}
+                        
+                       
+                        
+                    </div>
+                </div>
+                <button type="submit" class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">Post Job</button>
+            </form>
+        </div>
+    </div>
+</body>
+
+</html>

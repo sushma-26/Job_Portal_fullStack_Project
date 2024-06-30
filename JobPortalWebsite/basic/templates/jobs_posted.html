@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Job Portal - Jobs Posted</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+</head>
+
+<body class="bg-gray-900 text-white">
+    <div class="min-h-screen flex justify-center items-center">
+        <div class="w-full sm:max-w-2xl bg-gray-800 p-8 rounded-lg shadow-lg">
+            <h2 class="text-2xl font-semibold mb-4">Jobs Posted</h2>
+            <!-- Job Card -->
+            <div class="bg-gray-700 rounded-lg p-6">
+                {% for each_job in jobs_posted %}
+                <form method="POST">
+                    {% csrf_token %}
+                    <input type="text" name="job_id" value="{{ each_job.id }}" hidden />
+                <div class="mb-6 border-b border-gray-600 pb-6">
+                    <div class="flex justify-between items-center">
+                        <h3 class="text-xl font-semibold">{{ each_job.role }}</h3>
+                        <button class="bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">Delete Job</button>
+                    </div>
+                    <p class="text-gray-300 mb-2">Company: {{ each_job.company_name }}</p>
+        
+                    <div class="flex justify-end">
+                        <button type="submit" class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline mr-2">View Applicants</button>
+                    </div>
+                    
+                </div>
+            </form>
+                {% endfor %}
+            </div>  
+            <!-- End of Job Cards -->
+        </div>
+    </div>
+</body>
+
+</html>

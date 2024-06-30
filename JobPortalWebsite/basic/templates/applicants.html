@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>View Applicants</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+</head>
+<body class="bg-gray-900 text-white">
+    <div class="container mx-auto p-8">
+        <h2 class="text-2xl font-semibold mb-4">Applicants for Job XYZ</h2>
+        <div class="grid gap-4">
+            <!-- Applicant Cards -->
+            <!-- Applicant 1 -->
+            {% for each_applicant in applicants %}
+            <div class="bg-gray-800 rounded-lg p-6 flex justify-between items-center">
+                
+                <h3 class="text-xl font-semibold">{{ each_applicant.user_id.username }}</h3>
+                <div class="flex items-center">
+                    <label for="status1" class="mr-2">Update Status:</label>
+                    <select id="status1" name="status1" class="bg-gray-700 text-white py-1 px-2 rounded">
+                        {% for each_status in status_list %}
+                        <option value="1">{{ each_status.status }}</option>
+                        {% endfor %}
+                    
+                    </select>
+                    <button type="submit" class="ml-2 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">Update Status</button>
+                    <button class="ml-2 bg-gray-500 hover:bg-gray-700 text-white font-bold py-1 px-2 rounded focus:outline-none focus:shadow-outline">View Profile</button>
+                </div>
+            </div>
+            {% endfor %}
+            
+        </div>
+    </div>
+</body>
+</html>

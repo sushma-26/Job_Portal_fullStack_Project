@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Dashboard</title>
+    <!-- Tailwind CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+</head>
+
+<body class="bg-gray-900 text-white">
+    <div class="container mx-auto h-screen flex justify-center">
+        <div class="flex w-full lg:w-3/4">
+            {% if messages %}
+            {% for message in messages %}
+                <div class=" text-red-400 p-4">{{ message }}</div>
+            {% endfor %}
+            {% endif %}
+            <!-- User Information -->
+            <div class="lg:w-1/3 bg-gray-800 p-8 rounded-l-lg overflow-y-auto">
+                <h2 class="text-2xl font-semibold mb-4">User Information</h2>
+                <p class="mb-4"><strong class="mr-2">Username:</strong> {{ user.username.capitalize }}</p>
+                <div class="mb-4">
+                    <strong class="mr-2">Skills:</strong>
+                    <ul class="list-disc pl-4">
+                        {% for skill in userskills %}
+                        <li>{{ skill.skill_id }}</li>
+                        {% endfor %}
+                    </ul>
+                </div>
+                <div class="mb-4">
+                    <strong class="mr-2">Interested Fields:</strong>
+                    <ul class="list-disc pl-4">
+                        {% for field in userfields %}
+                        <li>{{ field.field_id }}</li>
+                        {% endfor %}
+                    </ul>
+                </div>
+                <p class="mb-4"><strong class="mr-2">City:</strong>{{ seekerinfo.city_id }}</p>
+                <p><strong class="mr-2">Experience Level:</strong> {{ seekerinfo.exp_id }}</p>
+                <button class="mt-8 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">Edit Profile</button>
+                <br>
+                <br>
+
+                <a href="{% url 'applied-jobs' %}" class="mt-4 bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">View Applied Jobs</a>
+
+            </div>
+            <!-- Jobs Posted by HRs -->
+            <div class="lg:w-2/3 bg-gray-800 p-8 rounded-r-lg overflow-y-auto">
+                <h2 class="text-2xl font-semibold mb-4">Jobs Posted by HRs</h2>
+                <div class="grid gap-4">
+                    {% for each_matching_job in matching_jobs %}
+                    <form method="POST">
+                        {% csrf_token %}
+                        <input type="hidden" name="job_id" value="{{ each_matching_job.id }}">
+                        <div class="bg-gray-700 p-4 rounded-lg">
+                            <h3 class="text-xl font-semibold mb-2">{{ each_matching_job.role }}</h3>
+                            <p class="text-gray-300">{{ each_matching_job.description }}</p>
+                            <button type="submit" class="mt-2 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">Apply</button>
+                        </div>
+                </form>
+                    {% endfor %}
+                    
+                   
+
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

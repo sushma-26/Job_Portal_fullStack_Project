@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Details</title>
+    <!-- Include Tailwind CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+</head>
+
+<body class="bg-gray-900 text-white">
+
+    {% if messages %}
+            {% for message in messages %}
+                <div class=" text-green-400 p-4">{{ message }}</div>
+            {% endfor %}
+            {% endif %}
+
+    <div class="max-w-md mx-auto mt-8 p-6 bg-gray-800 rounded-lg shadow-md">
+        <h1 class="text-2xl font-semibold mb-4">Add User Details</h1>
+        <form method="POST">
+            {% csrf_token %}
+            <div class="mb-4">
+                <label for="skills" class="block text-sm font-medium">Skills</label>
+                <div class="mt-2 space-y-2">
+                    {% for each_skill in skills_list %}
+                    <label class="flex items-center">
+                        <input type="checkbox" class="form-checkbox h-5 w-5 text-indigo-600" name="skills" value="{{ each_skill }}">
+                        <span class="ml-2">{{ each_skill }}</span>
+                    </label>
+                    {% endfor %}
+                   
+        
+                </div>
+            </div>
+            <div class="mb-4">
+                <label for="interestedRoles" class="block text-sm font-medium">Interested Roles</label>
+                <div class="mt-2 space-y-2">
+                    {% for each_field in fields_list %}
+                    <label class="flex items-center">
+                        <input type="checkbox" class="form-checkbox h-5 w-5 text-indigo-600" name="fields" value="{{ each_field }}">
+                        <span class="ml-2">{{ each_field }}</span>
+                    </label>
+                    {% endfor  %}
+                   
+    
+                </div>
+            </div>
+            <div class="mb-4">
+                <label for="experienceLevel" class="block text-sm font-medium">Experience Level</label>
+                <select id="experienceLevel" name="exp" class="mt-1 block w-full shadow-sm focus:ring-indigo-500 focus:border-indigo-500 border-gray-600 bg-gray-700 rounded-md">
+                    {% for each_exp in exp_list %}
+                    <option value="{{ each_exp }}">{{ each_exp }}</option>
+                    {% endfor  %}
+                </select>
+            </div>
+
+            <div class="relative">
+                <select name="location" class="block appearance-none w-full bg-gray-800 border border-gray-700 text-white py-2 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-gray-900 focus:border-gray-900">
+                    {% for city in city_list %}
+                    <option>{{ city }}</option>
+                    {% endfor %}
+                        
+            
+                </select>
+                <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-white">
+                  <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+                    <path d="M10 12L4 6h12z"/>
+                  </svg>
+                </div>
+              </div>
+
+              
+
+            <div class="mt-6">
+                <button type="submit"
+                    class="w-full px-4 py-2 bg-indigo-600 border border-transparent rounded-md font-semibold hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">Add
+                    Details</button>
+            </div>
+        </form>
+    </div>
+</body>
+
+</html>
